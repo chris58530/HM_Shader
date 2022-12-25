@@ -12,11 +12,14 @@ public class ChangeVideo : MonoBehaviour
     float f;
     float size;
 
+    AudioSource bgAudio;
+
     void Start()
     {
         video.SetActive(false);
         isVideo = false;
         Material = GetComponent<MeshRenderer>().materials[0];
+        bgAudio = GetComponent<AudioSource>();
         size = Material.GetFloat("_Size");
 
     }
@@ -24,6 +27,8 @@ public class ChangeVideo : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(0) && !isVideo)
         {
+            bgAudio.volume = 0;
+
             f = 1;
             Material.SetFloat("_Blur", f);
 
@@ -50,6 +55,7 @@ public class ChangeVideo : MonoBehaviour
             f -= 0.01f;
             Debug.Log("-2");
             Material.SetFloat("_Size", size);
+            bgAudio.volume = 1;
 
             yield return new WaitForSeconds(0.2f);
         }
